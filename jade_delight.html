@@ -5,6 +5,8 @@
     <script>
         setInterval(getOrder, 10);
         setInterval(amount, 10);
+        setInterval(totals, 10);
+
 
         function getOrder() {
             if (document.querySelector('input[value=pickup]').checked) {
@@ -23,16 +25,29 @@
             var mooSui = document.getElementById("quan3").value;
             var rice = document.getElementById("quan4").value;
 
-            document.getElementById("coster").value = chicken *
+            document.getElementById("cost0").value = chicken *
                 menuItems[0].cost.toFixed(2);
-            document.getElementById("coster").value = pork *
+            document.getElementById("cost1").value = pork *
                 menuItems[1].cost.toFixed(2);
-            document.getElementById("coster").value = shrimp *
+            document.getElementById("cost2").value = shrimp *
                 menuItems[2].cost.toFixed(2);
-            document.getElementById("coster").value = mooSui *
+            document.getElementById("cost3").value = mooSui *
                 menuItems[3].cost.toFixed(2);
-            document.getElementById("coster").value = rice *
+            document.getElementById("cost4").value = rice *
                 menuItems[4].cost.toFixed(2);
+        }
+
+        function totals() {
+            var arr = document.getElementsByName('cost');
+            var tot = 0;
+            for(var i=0;i<arr.length;i++){
+                if(parseInt(arr[i].value))
+                    tot += parseInt(arr[i].value);
+            }
+            document.getElementById('subtotal').value = tot;
+            var tax = tot * .0625;
+            document.getElementById('tax').value = tax;
+            document.getElementById('total').value = tot + tax;
 
         }
     </script>
@@ -127,7 +142,8 @@
                   s += td(makeSelect("quan" + i, 0, 10),"selectQuantity");
                   s += td(menuItems[i].name, "itemName");
                   s += td("$" + menuItems[i].cost.toFixed(2), "cost");
-                  s += td("$<input id='coster' type='text' name='cost'/>",
+                  s += td("$<input id='cost"+ i +
+                      "' type='text' name='cost'/>",
                       "totalCost");
                   s += "</tr>";
               }
