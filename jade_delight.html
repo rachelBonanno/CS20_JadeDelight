@@ -4,7 +4,7 @@
     <title>Jade Delight</title>
     <script>
         setInterval(getOrder, 10);
-        // setInterval(amount, 10);
+        setInterval(amount, 10);
 
         function getOrder() {
             if (document.querySelector('input[value=pickup]').checked) {
@@ -16,9 +16,25 @@
             }
         }
 
-        // function amount(){
-        //     if (document.querySelector('input'))
-        // }
+        function amount(){
+            var chicken = document.getElementById("quan0").value;
+            var pork = document.getElementById("quan1").value;
+            var shrimp = document.getElementById("quan2").value;
+            var mooSui = document.getElementById("quan3").value;
+            var rice = document.getElementById("quan4").value;
+
+            document.getElementById("coster").value = chicken *
+                menuItems[0].cost.toFixed(2);
+            document.getElementById("coster").value = pork *
+                menuItems[1].cost.toFixed(2);
+            document.getElementById("coster").value = shrimp *
+                menuItems[2].cost.toFixed(2);
+            document.getElementById("coster").value = mooSui *
+                menuItems[3].cost.toFixed(2);
+            document.getElementById("coster").value = rice *
+                menuItems[4].cost.toFixed(2);
+
+        }
     </script>
     <style>
         body {
@@ -48,6 +64,7 @@
         .userInfo input {
             display: inline-block;
         }
+
     </style>
 </head>
 
@@ -69,7 +86,7 @@
 
         function makeSelect(name, minRange, maxRange) {
             var t = "";
-            t = "<select name='" + name + "' size='1'>";
+            t = "<select id='"+ name + "' name='" + name + "' size='1'>";
             for (j = minRange; j<=maxRange; j++)
                t += "<option>" + j + "</option>";
             t += "</select>";
@@ -110,7 +127,8 @@
                   s += td(makeSelect("quan" + i, 0, 10),"selectQuantity");
                   s += td(menuItems[i].name, "itemName");
                   s += td("$" + menuItems[i].cost.toFixed(2), "cost");
-                  s += td("$<input type='text' name='cost'/>", "totalCost");
+                  s += td("$<input id='coster' type='text' name='cost'/>",
+                      "totalCost");
                   s += "</tr>";
               }
               document.writeln(s);
