@@ -6,15 +6,17 @@
         setInterval(getOrder, 10);
         setInterval(amount, 10);
         setInterval(totals, 10);
-
+        setInterval(userInput, 10);
 
         function getOrder() {
             if (document.querySelector('input[value=pickup]').checked) {
                 document.getElementById("street").style.visibility = "hidden";
                 document.getElementById("city").style.visibility = "hidden";
+                localStorage["recievetype"] = "pickup";
             } else {
                 document.getElementById("street").style.visibility = "visible";
                 document.getElementById("city").style.visibility = "visible";
+                localStorage["recievetype"] = "delivery";
             }
         }
 
@@ -25,30 +27,49 @@
             var mooSui = document.getElementById("quan3").value;
             var rice = document.getElementById("quan4").value;
 
-            document.getElementById("cost0").value = chicken *
-                menuItems[0].cost.toFixed(2);
-            document.getElementById("cost1").value = pork *
-                menuItems[1].cost.toFixed(2);
-            document.getElementById("cost2").value = shrimp *
-                menuItems[2].cost.toFixed(2);
-            document.getElementById("cost3").value = mooSui *
-                menuItems[3].cost.toFixed(2);
-            document.getElementById("cost4").value = rice *
-                menuItems[4].cost.toFixed(2);
+            document.getElementById("cost0").value = (chicken *
+                menuItems[0].cost.toFixed(2)).toFixed(2);
+            document.getElementById("cost1").value = (pork *
+                menuItems[1].cost.toFixed(2)).toFixed(2);
+            document.getElementById("cost2").value = (shrimp *
+                menuItems[2].cost.toFixed(2)).toFixed(2);
+            document.getElementById("cost3").value = (mooSui *
+                menuItems[3].cost.toFixed(2)).toFixed(2);
+            document.getElementById("cost4").value = (rice *
+                menuItems[4].cost.toFixed(2)).toFixed(2);
         }
 
         function totals() {
             var arr = document.getElementsByName('cost');
             var tot = 0;
-            for(var i=0;i<arr.length;i++){
+            for(var i=0;i<=4;i++){
                 if(parseInt(arr[i].value))
-                    tot += parseInt(arr[i].value);
+                    tot += parseInt(arr[i].value * 1000);
             }
-            document.getElementById('subtotal').value = tot;
+            tot = tot/1000;
+            document.getElementById('subtotal').value = tot.toFixed(2);
             var tax = tot * .0625;
-            document.getElementById('tax').value = tax;
-            document.getElementById('total').value = tot + tax;
+            document.getElementById('tax').value = tax.toFixed(2);
+            var totals = tot + tax;
+            document.getElementById('total').value = totals.toFixed(2);
 
+            localStorage["subtotal"] = tot;
+            localStorage["tax"] = tax;
+            localStorage["total"] = totals;
+        }
+
+        function userInput() {
+            var first = document.getElementsByName('fname').innerText;
+            var last = document.getElementsByName('lname').innerText;
+            var street = document.getElementsByName('street').innerText;
+            var city = document.getElementsByName('city').innerText;
+            var phone = document.getElementsByName('phone').innerText;
+
+            localStorage["first"] = first;
+            localStorage["last"] = last;
+            localStorage["street"] = street;
+            localStorage["city"] = city;
+            localStorage["phone"] = phone;
         }
     </script>
     <style>
@@ -80,6 +101,9 @@
             display: inline-block;
         }
 
+        .totalSection {
+            background-color: #73962c;
+        }
     </style>
 </head>
 
@@ -115,9 +139,11 @@
     </script>
 
     <h1>Jade Delight</h1>
-    <form>
+    <form action="receipt.html">
 
-        <p class="userInfo"><label>First Name:</label> <input type="text"  name='fname' /></p>
+        <p class="userInfo"><label>First Name:</label> <input type="text"
+                                                              name='fname'
+                                                              value=""/></p>
         <p class="userInfo"><label>Last Name*:</label>  <input type="text"  name='lname' /></p>
         <p id="street" class="userInfo address"><label>Street*:</label> <input type="text" name='street' /></p>
         <p id="city" class="userInfo address"><label>City*:</label> <input type="text" name='city' /></p>
@@ -151,15 +177,16 @@
             </script>
         </table>
         <p class="subtotal totalSection"><label>Subtotal</label>:
-           $ <input type="text"  name='subtotal' id="subtotal" />
+           $ <input type="text" name='subtotal' id="subtotal" />
         </p>
         <p class="tax totalSection"><label>Mass tax 6.25%:</label>
-          $ <input type="text"  name='tax' id="tax" />
+          $ <input type="text" name='tax' id="tax" />
         </p>
-        <p class="total totalSection"><label>Total:</label> $ <input type="text"  name='total' id="total" />
+        <p class="total totalSection"><label>Total:</label> $ <input type="text" name='total' id="total" />
         </p>
 
-        <input type="button" value="Submit Order"/>
+        <input type="button" value="Submit Order" onclick="
+        window.open('receipt.html','_blank')"/>
 
     </form>
 </body>
