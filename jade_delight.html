@@ -4,6 +4,7 @@
     <title>Jade Delight</title>
     <script>
         setInterval(getOrder, 10);
+        // setInterval(amount, 10);
 
         function getOrder() {
             if (document.querySelector('input[value=pickup]').checked) {
@@ -14,7 +15,30 @@
                 document.getElementById("city").style.visibility = "visible";
             }
         }
+
+        // function amount(){
+        //     if (document.querySelector('input'))
+        // }
     </script>
+    <style>
+        body {
+            background-color: #81a832;
+        }
+        h1 {
+            font-family: "papyrus", cursive;
+            font-size: 50px;
+            color: #2a3d03;
+            text-align: center;
+        }
+        form {
+            text-align: center;
+        }
+
+        table {
+            margin-right: auto;
+            margin-left: auto;
+        }
+    </style>
 </head>
 
 <body>
