@@ -11,11 +11,9 @@
             if (document.querySelector('input[value=pickup]').checked) {
                 document.getElementById("street").style.visibility = "hidden";
                 document.getElementById("city").style.visibility = "hidden";
-                localStorage["recievetype"] = "pickup";
             } else {
                 document.getElementById("street").style.visibility = "visible";
                 document.getElementById("city").style.visibility = "visible";
-                localStorage["recievetype"] = "delivery";
             }
         }
 
@@ -63,20 +61,29 @@
             var street = document.getElementsByName('street').value;
             var city = document.getElementsByName('city').value;
             var phone = document.getElementsByName('phone').value;
-            if (document.querySelector('input[value=pickup]').checked) {
-            if (last.value != "" or phone.value != "" or street.value != ""
-            or city.value != "") {
 
+
+            new_window = window.open('receipt.html','_blank');
+            new_window.document.write("<h2> Order Details </h2>");
+            new_window.document.write("<p> First Name: </p>");
+            new_window.document.write("<p> Last Name: </p>");
+            if (document.querySelector('input[value=pickup]').checked) {
+                new_window.document.write("<p> Order Type: Pickup </p>");
+                new_window.document.write("<p> Your order will be ready in 20min. </p>");
+
+
+            } else {
+                new_window.document.write("<p> Order Type: Delivery </p>");
+                new_window.document.write("<p> Your order will be ready in 40min. </p>");
             }
 
-            window.open('receipt.html','_blank');
+            new_window.document.write("<h2> Receipt </h2>");
 
-
-            localStorage["first"] = first;
-            localStorage["last"] = last;
-            localStorage["street"] = street;
-            localStorage["city"] = city;
-            localStorage["phone"] = phone;
+            // localStorage["first"] = first;
+            // localStorage["last"] = last;
+            // localStorage["street"] = street;
+            // localStorage["city"] = city;
+            // localStorage["phone"] = phone;
         }
     </script>
     <style>
@@ -146,7 +153,7 @@
     </script>
 
     <h1>Jade Delight</h1>
-    <form action="receipt.html">
+    <form>
 
         <p class="userInfo"><label>First Name:</label> <input type="text" name='fname'/></p>
         <p class="userInfo"><label>Last Name*:</label>  <input type="text"  name='lname' /></p>
