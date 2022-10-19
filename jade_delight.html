@@ -6,7 +6,6 @@
         setInterval(getOrder, 10);
         setInterval(amount, 10);
         setInterval(totals, 10);
-        setInterval(userInput, 10);
 
         function getOrder() {
             if (document.querySelector('input[value=pickup]').checked) {
@@ -59,11 +58,19 @@
         }
 
         function userInput() {
-            var first = document.getElementsByName('fname').innerText;
-            var last = document.getElementsByName('lname').innerText;
-            var street = document.getElementsByName('street').innerText;
-            var city = document.getElementsByName('city').innerText;
-            var phone = document.getElementsByName('phone').innerText;
+            var first = document.getElementsByName('fname').value;
+            var last = document.getElementsByName('lname').value;
+            var street = document.getElementsByName('street').value;
+            var city = document.getElementsByName('city').value;
+            var phone = document.getElementsByName('phone').value;
+            if (document.querySelector('input[value=pickup]').checked) {
+            if (last.value != "" or phone.value != "" or street.value != ""
+            or city.value != "") {
+
+            }
+
+            window.open('receipt.html','_blank');
+
 
             localStorage["first"] = first;
             localStorage["last"] = last;
@@ -141,9 +148,7 @@
     <h1>Jade Delight</h1>
     <form action="receipt.html">
 
-        <p class="userInfo"><label>First Name:</label> <input type="text"
-                                                              name='fname'
-                                                              value=""/></p>
+        <p class="userInfo"><label>First Name:</label> <input type="text" name='fname'/></p>
         <p class="userInfo"><label>Last Name*:</label>  <input type="text"  name='lname' /></p>
         <p id="street" class="userInfo address"><label>Street*:</label> <input type="text" name='street' /></p>
         <p id="city" class="userInfo address"><label>City*:</label> <input type="text" name='city' /></p>
@@ -185,8 +190,7 @@
         <p class="total totalSection"><label>Total:</label> $ <input type="text" name='total' id="total" />
         </p>
 
-        <input type="button" value="Submit Order" onclick="
-        window.open('receipt.html','_blank')"/>
+        <input type="button" value="Submit Order" onclick="userInput()"/>
 
     </form>
 </body>
